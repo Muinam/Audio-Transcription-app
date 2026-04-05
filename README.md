@@ -268,7 +268,3 @@ Upload an audio file and get the transcription.
 | ngrok ERR_NGROK_3200 | Free plan allows one tunnel only — close the old one |
 
 ---
-
-## Author
-
-Built as a Full-Stack AI Challenge submission.
