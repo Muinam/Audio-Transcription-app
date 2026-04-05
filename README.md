@@ -1,6 +1,6 @@
-# 🎙️ VoiceScript — AI Audio Transcription App
+# VoiceScript - AI Audio Transcription App
 
-> Upload any audio file and get accurate text transcriptions in seconds, powered by OpenAI's Whisper AI model.
+> Upload an audio file and get the text transcript in seconds, powered by OpenAI Whisper AI.
 
 ![Tech Stack](https://img.shields.io/badge/FastAPI-0.111-009688?style=flat-square&logo=fastapi)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)
@@ -9,42 +9,41 @@
 
 ---
 
-## 📋 Project Overview
+## What This App Does
 
-VoiceScript is a full-stack web application that allows users to:
-- Upload audio files (.mp3, .wav, .m4a, .ogg, .flac)
-- Get real-time AI-powered text transcriptions via Whisper tiny model
-- Copy transcription text to clipboard
-- Supports multiple languages (auto-detected)
+VoiceScript is a full-stack web app that:
+- Accepts audio file uploads (.mp3, .wav, .m4a, .ogg, .flac)
+- Converts audio to text using the Whisper AI model
+- Auto-detects the spoken language
+- Lets you copy the transcription with one click
 
-**Architecture:** React/Next.js frontend (Vercel) ↔ ngrok tunnel ↔ FastAPI backend (local) ↔ Whisper AI model
+**How it works:** Next.js frontend (Vercel) → ngrok tunnel → FastAPI backend (local) → Whisper AI
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
+| Part | Technology |
+|------|-----------|
 | Frontend | Next.js 14, React 18, TypeScript |
-| Styling | Tailwind CSS, Custom CSS animations |
+| Styling | Tailwind CSS |
 | File Upload | react-dropzone |
-| HTTP Client | Axios |
+| HTTP | Axios |
 | Backend | Python 3.10+, FastAPI |
 | AI Model | OpenAI Whisper (tiny) |
-| Tunneling | ngrok |
-| Deployment | Vercel (frontend) |
+| Tunnel | ngrok |
+| Hosting | Vercel |
 
 ---
 
-## ✅ Prerequisites
+## Requirements
 
-Make sure these are installed on your machine:
+You need these installed before starting:
 
-| Tool | Version | Install |
+| Tool | Version | Download |
 |------|---------|---------|
 | Python | 3.10+ | [python.org](https://python.org) |
 | Node.js | 18+ | [nodejs.org](https://nodejs.org) |
-| npm | 9+ | Comes with Node.js |
 | FFmpeg | Any | See below |
 | ngrok | Any | [ngrok.com](https://ngrok.com/download) |
 
@@ -52,10 +51,7 @@ Make sure these are installed on your machine:
 
 **Windows:**
 ```bash
-# Using Chocolatey
-choco install ffmpeg
-
-# Or download from: https://ffmpeg.org/download.html
+winget install ffmpeg
 ```
 
 **macOS:**
@@ -63,163 +59,152 @@ choco install ffmpeg
 brew install ffmpeg
 ```
 
-**Linux (Ubuntu/Debian):**
+**Linux:**
 ```bash
 sudo apt update && sudo apt install ffmpeg
 ```
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Guide
 
-### Step 1 — Repository Clone Karo
+### Step 1 - Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/audio-transcription-app.git
-cd audio-transcription-app
+git clone https://github.com/Muinam/Audio-Transcription-app.git
+cd Audio-Transcription-app
 ```
 
-### Step 2 — Backend Setup
+### Step 2 - Backend Setup
 
 ```bash
-# Backend folder mein jao
 cd backend
 
-# Virtual environment banao (recommended)
+# Create virtual environment
 python -m venv venv
 
-# Virtual environment activate karo
+# Activate it
 # Windows:
 venv\Scripts\activate
-# macOS/Linux:
+# Mac/Linux:
 source venv/bin/activate
 
-# Dependencies install karo
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-> ⏳ **Note:** Pehli baar `openai-whisper` install hoga aur model download hoga (~75MB). Patience rakho.
+> Note: First time setup will download the Whisper model (~75MB). This takes a few minutes.
 
-### Step 3 — Backend Run Karo
+### Step 3 - Run the Backend
 
 ```bash
-# backend/ folder mein (venv active hona chahiye)
 uvicorn main:app --reload --port 8000
 ```
 
-Aapko yeh dikhega:
+You should see:
 ```
-⏳ Loading Whisper tiny model...
-✅ Whisper model loaded successfully!
+Loading Whisper tiny model...
+Whisper model loaded successfully!
 INFO: Uvicorn running on http://127.0.0.1:8000
 ```
 
-**Test karo:** Browser mein `http://localhost:8000` open karo — `{"status":"running"}` dikhna chahiye.
+Open `http://localhost:8000` in your browser to confirm it is running.
 
-### Step 4 — Frontend Setup
+### Step 4 - Frontend Setup
 
 ```bash
-# Nayi terminal mein — frontend folder mein jao
 cd frontend
 
-# Dependencies install karo
 npm install
 
-# .env.local file banao
+# Windows:
+copy .env.local.example .env.local
+# Mac/Linux:
 cp .env.local.example .env.local
 ```
 
-`.env.local` file mein yeh hona chahiye (local testing ke liye):
-```env
+Make sure `.env.local` has this:
+```
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-### Step 5 — Frontend Run Karo
+### Step 5 - Run Everything Together
 
 ```bash
-# frontend/ folder mein
-npm run dev
+cd frontend
+npm run dev:all
 ```
 
-Browser mein `http://localhost:3000` open karo — app ready hai! 🎉
+This starts both backend and frontend at the same time.
+
+Open `http://localhost:3000` and the app is ready!
 
 ---
 
-## 🌐 Deployment Instructions
+## Deployment Guide
 
-### Step 1 — Frontend Vercel par Deploy Karo
+### 1 - Deploy Frontend to Vercel
 
+Go to [vercel.com/new](https://vercel.com/new) and connect your GitHub repo.
+
+Or use CLI:
 ```bash
-# Vercel CLI install karo (agar nahi hai)
-npm install -g vercel
-
-# frontend/ folder mein
 cd frontend
-
-# Deploy karo
+npm install -g vercel
 vercel
-
-# Follow the prompts:
-# - Link to existing project? No
-# - Project name: audio-transcription-app
-# - Root directory: ./
 ```
 
-Ya GitHub se directly: [vercel.com/new](https://vercel.com/new) → GitHub repo connect karo.
-
-### Step 2 — ngrok Setup Karo
+### 2 - Setup ngrok Account
 
 ```bash
-# ngrok account banao: https://ngrok.com
-# Auth token set karo (ek baar)
-ngrok config add-authtoken YOUR_NGROK_AUTH_TOKEN
+ngrok config add-authtoken YOUR_TOKEN_HERE
 ```
 
-### Step 3 — ngrok Tunnel Start Karo
+Get your token from [ngrok.com/dashboard](https://dashboard.ngrok.com)
+
+### 3 - Start ngrok Tunnel
 
 ```bash
-# Ek nayi terminal mein (backend chal raha ho)
 ngrok http 8000
 ```
 
-Aapko yeh dikhega:
+You will get a URL like:
 ```
-Forwarding  https://abc123def.ngrok-free.app -> http://localhost:8000
+Forwarding  https://abc123.ngrok-free.app -> http://localhost:8000
 ```
 
-**Yeh URL copy karo:** `https://abc123def.ngrok-free.app`
+Copy that URL.
 
-### Step 4 — Vercel Environment Variable Update Karo
+### 4 - Add URL to Vercel
 
-1. [vercel.com/dashboard](https://vercel.com/dashboard) → Apna project open karo
-2. **Settings** → **Environment Variables**
-3. Variable add karo:
+1. Go to [vercel.com/dashboard](https://vercel.com/dashboard)
+2. Open your project → Settings → Environment Variables
+3. Add:
    - Name: `NEXT_PUBLIC_API_URL`
-   - Value: `https://abc123def.ngrok-free.app` (apna ngrok URL)
-4. **Save** karo
-5. **Redeploy:** Deployments → Latest deployment → **Redeploy**
+   - Value: `https://abc123.ngrok-free.app`
+4. Save and Redeploy
 
-### Step 5 — Test Karo
+### 5 - Test
 
-Live Vercel URL open karo aur audio upload karo — transcription aani chahiye! ✅
+Open your Vercel URL, upload an audio file, and the transcription will appear!
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-audio-transcription-app/
+Audio-Transcription-app/
 ├── backend/
-│   ├── main.py              # FastAPI server + Whisper integration
-│   └── requirements.txt     # Python dependencies
+│   ├── main.py              # FastAPI server + Whisper AI
+│   └── requirements.txt     # Python packages
 │
 ├── frontend/
 │   ├── pages/
-│   │   ├── _app.tsx         # Next.js App wrapper
-│   │   └── index.tsx        # Main UI page
+│   │   ├── _app.tsx         # App entry point
+│   │   └── index.tsx        # Main UI
 │   ├── styles/
-│   │   └── globals.css      # Global styles + animations
-│   ├── .env.local.example   # Environment variables template
+│   │   └── globals.css      # Styles and animations
+│   ├── .env.local.example   # Environment variable template
 │   ├── next.config.js
 │   ├── tailwind.config.js
 │   ├── tsconfig.json
@@ -230,60 +215,60 @@ audio-transcription-app/
 
 ---
 
-## 🔌 API Reference
+## API Endpoints
 
-### `GET /`
-Health check — server running hai ya nahi
+### GET /
+Check if the server is running.
 
 **Response:**
 ```json
-{ "status": "running", "message": "Audio Transcription API is live 🎙️" }
+{ "status": "running", "message": "Audio Transcription API is live" }
 ```
 
-### `POST /transcribe`
-Audio file upload karo aur transcription pao
+### POST /transcribe
+Upload an audio file and get the transcription.
 
-**Request:** `multipart/form-data`
+**Request:** multipart/form-data
 - `file`: Audio file (.mp3, .wav, .m4a, .ogg, .flac) — max 25MB
 
 **Success Response (200):**
 ```json
 {
   "success": true,
-  "transcription": "Yeh transcribed text hai...",
+  "transcription": "Your transcribed text here...",
   "language": "en",
   "filename": "audio.mp3",
   "file_size_kb": 1024.5
 }
 ```
 
-**Error Responses:**
-- `400` — Invalid file type ya empty file
-- `413` — File 25MB se badi hai
-- `500` — Transcription processing error
+**Error Codes:**
+- `400` — Wrong file type or empty file
+- `413` — File is larger than 25MB
+- `500` — Transcription failed
 
 ---
 
-## ⚠️ Important Notes
+## Important Notes
 
-1. **ngrok URL changes** har baar jab aap tunnel restart karte ho — Vercel mein dobara update karna hoga
-2. **Review ke time** backend aur ngrok dono chalu rakhna — warna live site kaam nahi karega
-3. **First run slow** ho sakta hai — Whisper model pehli baar download hota hai
-
----
-
-## 🐛 Common Issues & Fixes
-
-| Issue | Fix |
-|-------|-----|
-| `FFmpeg not found` | FFmpeg install karo (upar instructions dekho) |
-| `CORS error` | Backend mein CORS already enabled hai — ngrok URL sahi hai? |
-| `Connection refused` | Backend port 8000 par chal raha hai? ngrok active hai? |
-| `Module not found` | `pip install -r requirements.txt` dobara run karo |
-| ngrok `ERR_NGROK_3200` | Free account mein ek hi tunnel allowed — purana band karo |
+- The ngrok URL changes every time you restart the tunnel — update Vercel each time
+- Keep backend and ngrok running during review so the live site works
+- First run is slow because Whisper model downloads automatically (~75MB)
 
 ---
 
-## 👨‍💻 Author
+## Common Problems
+
+| Problem | Solution |
+|---------|----------|
+| FFmpeg not found | Install FFmpeg using winget or brew |
+| CORS error | Check the ngrok URL is correct in Vercel settings |
+| Connection refused | Make sure backend is running on port 8000 |
+| Module not found | Run pip install -r requirements.txt again |
+| ngrok ERR_NGROK_3200 | Free plan allows one tunnel only — close the old one |
+
+---
+
+## Author
 
 Built as a Full-Stack AI Challenge submission.
