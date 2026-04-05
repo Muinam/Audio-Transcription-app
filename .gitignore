@@ -1,0 +1,34 @@
+# Python
+trans/
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+env/
+.env
+*.egg-info/
+
+# Whisper model cache
+~/.cache/whisper/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+.cache/
+
+# Environment files
+.env.local
+.env.production
+.env*.local
+!.env.local.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+uploads/
+temp/
